@@ -1,0 +1,33 @@
+#!/bin/bash
+
+integrationTests() {
+    ./gradlew clean build test --info
+}
+
+docCheck() {
+    FILES="vars/*.groovy"
+    SUCCESS=true
+    for f in $FILES
+    do
+      filename="${f%.*}"
+      if [ ! -f "$filename.txt" ]; then
+        echo "$f is missing a .txt documentation file!"
+        SUCCESS=false
+      fi
+    done
+
+    if [ "$SUCCESS" == false ]; then
+        exit 1
+    fi
+}
+
+unitTests() {
+    echo "TODO: this."
+}
+
+# Default to running the integrationTests.
+if [ -z "$1" ]; then
+    integrationTests
+else
+    "$@"
+fi

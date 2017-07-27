@@ -1,0 +1,19 @@
+node() {
+    stage("Environment Cleanup"){
+        deleteDir()   
+    }
+    
+    stage("Checkout"){
+        checkout scm
+    }
+    
+    stage("Verify has Docs") {
+        sh "script/test docCheck"
+    }
+
+    stage("Run integration tests") {
+        fixDetachedHead()
+        sh "script/test integrationTests"
+        junit("build/test-results/**/*.xml")
+    }
+}

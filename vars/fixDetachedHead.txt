@@ -1,0 +1,9 @@
+<h3>Usage: fixDetachedHead()</h3>
+Description: Calls <code>git checkout -B $BRANCHNAME</code> to make sure that your git state is not a detached head.<br>
+Example:
+<pre><code>
+node(){
+  fixDetachedHead()
+  sh 'git status'
+}
+</code></pre>

@@ -1,0 +1,8 @@
+<h3>Usage: isPR()</h3>
+Description: Returns true or false on whether or not this run is a PR<br>
+Example:
+<pre><code>
+if(!isPR()){
+  deploy()
+}
+</code></pre>
