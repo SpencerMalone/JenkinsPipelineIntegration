@@ -1,0 +1,11 @@
+# Gradle
+build/
+.gradle/
+
+# Jenkins
+target/
+
+# Vim
+*.swp
+Session.vim
+
