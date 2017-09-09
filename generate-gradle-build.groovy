@@ -16,6 +16,18 @@ repositories {
     }
 }
 
+task setupRepoCopy(type:Exec) {
+    def stdout = new ByteArrayOutputStream()
+
+    commandLine "./script/test.sh", "setupCopyOfRepo"
+    standardOutput = stdout;
+    doLast {
+        println "Output:\n$stdout";
+    }
+}
+
+tasks.test.dependsOn(setupRepoCopy)
+
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.4.11'
 

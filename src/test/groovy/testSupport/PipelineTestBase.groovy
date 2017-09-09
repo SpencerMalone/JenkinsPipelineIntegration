@@ -21,16 +21,9 @@ class PipelineTestBase extends Specification {
      */
     def setup() {
 
-        def lib = new LibraryConfiguration("rsg", new SCMSourceRetriever(new GitSCMSource(null, System.getProperty("user.dir"), "", "*", "0", true)))
-        List<String> gitHeadNameCmd = ['git', 'rev-parse', '--abbrev-ref', 'HEAD']
-        def pb = new ProcessBuilder(gitHeadNameCmd).start()
-        pb.consumeProcessErrorStream(System.err)
-        pb.waitFor();
-        if (pb.exitValue() != 0) {
-            throw new RuntimeException("Error running "+gitHeadNameCmd.join(" ")+". The test must run from a git repository")
-        }
+        def lib = new LibraryConfiguration("rsg", new SCMSourceRetriever(new GitSCMSource(null, System.getProperty("user.dir") + "/.copy-of-repo", "", "*", "0", true)))
         lib.setImplicit(true)
-        lib.setDefaultVersion(pb.text.trim())
+        lib.setDefaultVersion("master")
         GlobalLibraries.get().setLibraries(Collections.singletonList(lib));
     }
 }
