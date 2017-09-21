@@ -25,6 +25,28 @@ unitTests() {
     echo "TODO: this."
 }
 
+setupCopyOfRepo() {
+    DIRECTORY=".copy-of-repo"
+    oldPWD=$(pwd)
+    
+    if [ -d "$DIRECTORY" ]; then
+        echo "Deleting old copy of repo"
+        rm -rf $DIRECTORY
+    fi
+
+    mkdir $DIRECTORY
+    rsync -a --exclude 'test' src/ $DIRECTORY/src
+    rsync -a vars/ $DIRECTORY/vars
+    rsync -a resources/ $DIRECTORY/resources
+    cd $DIRECTORY
+    git init
+    
+    git add .
+    git commit -m "Initial commit for copy of library repo"
+
+    cd "$oldPWD"
+}
+
 # Default to running the integrationTests.
 if [ -z "$1" ]; then
     integrationTests
