@@ -35,10 +35,12 @@ setupCopyOfRepo() {
     fi
 
     mkdir $DIRECTORY
+    rsync -a --exclude 'test' src/ $DIRECTORY/src
+    rsync -a vars/ $DIRECTORY/vars
+    rsync -a resources/ $DIRECTORY/resources
     cd $DIRECTORY
-
     git init
-    cp -R $oldPWD/* .
+    
     git add .
     git commit -m "Initial commit for copy of library repo"
 
